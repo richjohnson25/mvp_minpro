@@ -21,24 +21,22 @@ model Sample {
 }
 
 model User {
-  uid               String   @id @default(cuid())
-  first_name        String   @db.VarChar(25)
-  last_name         String   @db.VarChar(25)
-  username          String
-  address           String
-  phone_number      String   @db.VarChar(15)
-  role              Role
-  email             String   @db.VarChar(50)
-  password          String   @db.VarChar(15)
-  referral_code     String   @db.VarChar(20)
-  points            Int
-  registration_date DateTime
+  uid           String @id @default(cuid())
+  first_name    String @db.VarChar(25)
+  last_name     String @db.VarChar(25)
+  username      String
+  phone_number  String @db.VarChar(15)
+  role          Role
+  email         String @db.VarChar(50)
+  password      String @db.VarChar(15)
+  referral_code String @db.VarChar(20)
+  points        Int
 
-  eventsOrganized    Event[]            @relation("EventsOrganized")
+  eventsOrganized Event[]       @relation("EventsOrganized")
   //eventsParticipated Event[]            @relation("EventsParticipated")
   //participations     EventParticipant[]
-  transactions       Transaction[]
-  reviews            Review[]
+  transactions    Transaction[]
+  reviews         Review[]
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -53,15 +51,10 @@ enum Role {
 }
 
 model Event {
-  id              Int       @id @default(autoincrement())
-  name            String    
-  date            DateTime
-  time            DateTime
-  location        String
-  description     String
-  available_seats Int
-  price           Decimal   @db.Decimal(10, 2)
-  ticket_types    String
+  id          Int    @id @default(autoincrement())
+  name        String
+  location    String
+  description String
 
   organizer_uid   String
   event_organizer User?  @relation("EventsOrganized", fields: [organizer_uid], references: [uid])
@@ -73,6 +66,8 @@ model Event {
   event_categories Category @relation(fields: [category_id], references: [id])
 
   //participants EventParticipant[]
+  ticket_types TicketType[]
+  schedules    Schedule[]
   transactions Transaction[]
   vouchers     Voucher[]
   reviews      Review[]
@@ -112,19 +107,53 @@ model Category {
   @@map("categories")
 }
 
+model Schedule {
+  id              Int      @id @default(autoincrement())
+  start_time      DateTime
+  end_time        DateTime
+  available_seats Int
+
+  event_id Int
+  events   Event @relation(fields: [event_id], references: [id])
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("schedules")
+}
+
+model TicketType {
+  id        Int     @id @default(autoincrement())
+  type_name String
+  price     Decimal @db.Decimal(10, 2)
+
+  event_id Int
+  events   Event @relation(fields: [event_id], references: [id])
+
+  transactions Transaction[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  @@map("ticket_types")
+}
+
 model Transaction {
-  id             Int           @id @default(autoincrement())
-  participant_id Int
-  date           DateTime
-  time           DateTime
-  amount_paid    Decimal       @db.Decimal(10, 2)
-  status         PaymentStatus
+  id                Int           @id @default(autoincrement())
+  amount_paid       Decimal       @db.Decimal(10, 2)
+  number_of_tickets Int
+  status            PaymentStatus
 
   event_id Int
   events   Event @relation(fields: [event_id], references: [id])
 
   participant_uid String
   participants    User   @relation(fields: [participant_uid], references: [uid])
+
+  ticket_type_id Int
+  ticket_types TicketType @relation(fields: [ticket_type_id], references: [id])
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -173,11 +202,12 @@ model Review {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+
+  @@map("reviews")
 }
 
 // Catatan relationship:
 // User dengan role = "Organizer" dapat mengorganisir banyak event
-// User dengan role = "Participant" dapat mengikuti banyak event
+// User dengan role = "Participant" dapat melakukan banyak transaksi untuk mengikuti banyak event
 // Beberapa event bisa dikategorikan dalam satu kategori tertentu
-// Jika user dengan role = "Participant" mengikuti event dengan tipe "Paid", user bisa mengajukan banyak transaksi
 // Sebuah event bisa memiliki banyak voucher
