@@ -28,7 +28,7 @@ model User {
   phone_number  String @db.VarChar(15)
   role          Role
   email         String @db.VarChar(50)
-  password      String @db.VarChar(15)
+  password      String
   referral_code String @db.VarChar(20)
   points        Int
 

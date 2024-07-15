@@ -1,6 +1,12 @@
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
+const bcrypt = require('bcrypt')
+const hashPassword = async(password) => {
+    const saltRounds = 10;
+    return await bcrypt.hash(password, saltRounds)
+}
+
 const users = [
     {
         first_name: 'Julius',
@@ -228,17 +234,20 @@ const ticket_types = [
 ]
 
 async function main(){
-    /*users.forEach(async(item) => {
+    users.forEach(async(item) => {
         await prisma.user.create({
-            data: item
+            data: {
+                ...item,
+                password: await hashPassword(item.password)
+            }
         })
-    })*/
+    })
 
-    categories.forEach(async(item) => {
+    /*categories.forEach(async(item) => {
         await prisma.category.create({
             data: item
         })
-    })
+    })*/
 }
 
 main().catch((error) => {

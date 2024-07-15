@@ -1,4 +1,4 @@
-import express, {
+/*import express, {
   json,
   urlencoded,
   Express,
@@ -65,4 +65,4 @@ export default class App {
       console.log(`  ➜  [API] Local:   http://localhost:${PORT}/`);
     });
   }
-}
+}*/
