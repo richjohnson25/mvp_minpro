@@ -21,15 +21,16 @@ model Sample {
 }
 
 model User {
-  uid           String @id @default(cuid())
-  first_name    String @db.VarChar(25)
-  last_name     String @db.VarChar(25)
+  uid           String  @id @default(cuid())
+  first_name    String  @db.VarChar(25)
+  last_name     String  @db.VarChar(25)
   username      String
-  phone_number  String @db.VarChar(15)
+  phone_number  String  @db.VarChar(15)
   role          Role
-  email         String @db.VarChar(50)
+  email         String  @db.VarChar(50)
   password      String
-  referral_code String @db.VarChar(20)
+  isVerified    Boolean @default(false)
+  referral_code String  @db.VarChar(20)
   points        Int
 
   eventsOrganized Event[]       @relation("EventsOrganized")
@@ -153,7 +154,7 @@ model Transaction {
   participants    User   @relation(fields: [participant_uid], references: [uid])
 
   ticket_type_id Int
-  ticket_types TicketType @relation(fields: [ticket_type_id], references: [id])
+  ticket_types   TicketType @relation(fields: [ticket_type_id], references: [id])
 
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt

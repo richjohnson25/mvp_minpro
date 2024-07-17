@@ -1,19 +1,15 @@
-import { prisma } from "@/connection";
 import { createToken } from "@/helper/createToken";
-import { comparePassword } from "@/helper/hashPassword";
+import { comparePassword, hashPassword } from "@/helper/hashPassword";
+import { authenticationUserService } from "@/services/auth/authentication-user.service";
+import { keepAuthenticationUserService } from "@/services/auth/keep-authentication-user.service";
+import { verificationUserService } from "@/services/auth/verification-user.service";
 import { NextFunction, Request, Response } from "express";
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { username, password } = req.body;
 
-        const findUser = await prisma.user.findFirst({
-            where: {
-                AND: [
-                    {email: username}
-                ]
-            }
-        });
+        const findUser = await authenticationUserService({ email: username })
 
         if (findUser === null) {
             throw { message: 'Username & Password do not Match!', status: 401 }
@@ -39,6 +35,104 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
                 referral_code: findUser.referral_code,
                 points: findUser.points
             }
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+/*export const register = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { first_name, last_name, username, phone_number, role, email, password } = req.body;
+
+        const findUser = await prisma.user.findFirst({
+            where: {
+                email
+            }
+        })
+
+        if(findUser){
+            throw { message: 'Email Already Registered!', status: 400 }
+        }
+
+        let referral_code = generateReferralCode();
+
+        let existingUserWithCode = await prisma.user.findFirst({
+            where: {
+                referral_code
+            }
+        })
+
+        while(existingUserWithCode) {
+            referral_code = generateReferralCode();
+            existingUserWithCode = await prisma.user.findFirst({
+                where: {
+                    referral_code
+                }
+            })
+        }
+
+        const createdUser = await prisma.user.create({
+            data:{
+                first_name,
+                last_name,
+                username,
+                phone_number,
+                role: role as Role,
+                email,
+                password: await hashPassword(password),
+                referral_code,
+                points: 0
+            }
+        })
+
+        res.status(201).send({
+            error: false,
+            message: "User Registration Success!",
+            data: {createdUser}
+        })
+    } catch (error) {
+        next(error)
+    }
+}*/
+
+export const keepAuthenticationUser = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+        const {userId} = req.body
+
+        const findUser = await keepAuthenticationUserService({ uid: userId })
+
+        if(findUser === null){
+            throw { message: 'Unauthorized!', status: 401 }
+        }
+
+        res.status(200).send({
+            error: false,
+            message: 'Login Success!',
+            data: {
+                first_name: findUser.first_name,
+                last_name: findUser.last_name,
+                email: findUser.email,
+                role: findUser.role,
+                referral_code: findUser.referral_code,
+                points: findUser.points
+            }
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const verificationUser = async(req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { password, userId } = req.body
+
+        const findUser = await verificationUserService({ uid: userId, password })
+
+        res.status(201).send({
+            error: false,
+            message: 'Verification & Update Password Success',
+            data: {}
         })
     } catch (error) {
         next(error)
