@@ -1,12 +1,13 @@
-import { keepAuthenticationUser, login, verificationUser } from "@/controllers/auth.controller";
+import { keepAuthenticationUser, login, register, verificationUser } from "@/controllers/auth.controller";
 import { Router } from "express";
 // Middleware
-import { loginValidation } from "@/middleware/validation/auth.validation";
+import { loginValidation } from "@/middleware/validation/login.validation";
 import { tokenVerify } from "@/middleware/tokenVerify";
 
 const router = Router()
 
 router.post('/', loginValidation, login)
+router.post('/register', register)
 /*router.get('/', tokenVerify, keepAuthenticationUser)
 router.patch('/', tokenVerify, verificationUser)*/
 

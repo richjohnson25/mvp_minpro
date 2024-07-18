@@ -79,9 +79,10 @@ const users = [
 const events = [
     {
         name: 'Alan Walker - Walkerworld: Asia Tour Pt. I in Jakarta',
-        location: 'Beach City Jakarta',
+        location: 'Phantom PIK 2, Jakarta',
         description: 'Saksikan penampilan langsung dari Alan Walker bersama bintang tamu Vikkstar, Putri Ariani, dan Robin Packalen, serta penampilan spesial dari guru musik Tri Adinata di Walkerworld Asia Tour in Jakarta.',
         type: 'Paid',
+        organizer_uid: 'clymnrrcw0000y3y70fjztdg6',
         category_id: 1
     },
     {
@@ -89,6 +90,7 @@ const events = [
         location: 'Beach City Jakarta',
         description: 'Saksikan penampilan langsung dari aespa di SYNK: Parallel Line Live Tour in Jakarta',
         type: 'Paid',
+        organizer_uid: 'clymnrrcz0003y3y7tp8dqi8c',
         category_id: 1
     },
     {
@@ -96,70 +98,55 @@ const events = [
         location: 'The Ballroom at Djakarta Theater',
         description: 'Marketeers Hangout merupakan tempat kumpulnya orang-orang marketing yang kreatif. Di sini, para marketing antusias bisa berbagi inspirasi, solusi kreatif, dan jejaring baru. Seminar tahun ini mengambil tema Marketing vs. Everybody.',
         type: 'Paid',
+        organizer_uid: 'clymnrrcz0003y3y7tp8dqi8c',
         category_id: 2
     },
     {
-        name: 'Seminar Rahasia Pipa Duit 24/7',
-        date: new Date("2024-09-05 10:00:00"),
-        time: new Date("2024-09-05 10:00:00"),
-        location: 'The Ballroom at Djakarta Theater',
-        description: 'Marketeers Hangout merupakan tempat kumpulnya orang-orang marketing yang kreatif. Di sini, para marketing antusias bisa berbagi inspirasi, solusi kreatif, dan jejaring baru. Seminar tahun ini mengambil tema Marketing vs. Everybody.',
-        price: 1450000,
-        type: 'Paid',
-        ticket_types: 'Regular',
+        name: 'Building Unbreakable Self-Esteem with Solomon Asine',
+        location: 'Online',
+        description: `Join us for a virtual event where we'll discuss practical tips and strategies to boost your self-esteem in today's challenging world!`,
+        type: 'Free',
+        organizer_uid: 'clymnrrcz0003y3y7tp8dqi8c',
         category_id: 2
-    },
-    {
-        name: 'Ultra Beach Bali 2024',
-        date: new Date("2024-06-07 15:00:00"),
-        time: new Date("2024-06-07 15:00:00"),
-        location: 'Canggu, Bali',
-        description: 'Outdoor EDM festival which is part of Ultra Music Festival global expansion in Bali',
-        price: 3500000,
-        type: 'Paid',
-        ticket_types: 'Regular',
-        category_id: 3
     },
     {
         name: 'WCG 2024 Festival',
         location: 'ICE BSD Hall 1, Tangerang Selatan, Indonesia',
         description: 'Selamat datang di WCG (World Cyber Games), dimana para gamer dan kreator dari seluruh dunia disatukan dalam satu tempat festival',
         type: 'Paid',
-        ticket_types: 'Regular',
+        organizer_uid: 'clymnrrcz0003y3y7tp8dqi8c',
         category_id: 3
+    },
+    {
+        name: 'WONDERLAB',
+        location: 'Mall Grand Indonesia, Jakarta, Indonesia',
+        description: 'Annual Indonesia International Motor Show',
+        type: 'Paid',
+        organizer_uid: 'clymnrrcw0000y3y70fjztdg6',
+        category_id: 4
     },
     {
         name: 'Petronas Grand Prix of Malaysia 2024',
         location: 'Sepang International Circuit',
         description: 'Rasakan aksi memacu jantung di Malaysia Superbike Grand Prix di sirkuit ikonik PETRONAS Sepang International Circuit.',
         type: 'Paid',
+        organizer_uid: 'clymnrrcz0003y3y7tp8dqi8c',
         category_id: 5
     },
     {
-        name: 'Indonesia International Motor Show 2024',
-        date: new Date("2024-06-23 17:00:00"),
-        time: new Date("2024-06-23 17:00:00"),
-        location: 'Jakarta Convention Center',
-        description: 'Annual Indonesia International Motor Show',
-        price: 0,
-        type: 'Free',
-        ticket_types: 'Regular',
-        category_id: 4
+        name: 'Formula 1 Singapore Airlines Singapore Grand Prix 2024',
+        location: 'Downtown Core, Singapura',
+        description: 'Ikuti aksi balap seru antara pembalap superstar favoritmu di F1 Singapore Grand Prix',
+        type: 'Paid',
+        organizer_uid: 'clymnrrcz0003y3y7tp8dqi8c',
+        category_id: 5
     },
     {
-        name: 'Nusa Penida Island by Penida Blue Paradise',
+        name: 'Nusa Penida Island 3-Day Tour by Penida Blue Paradise',
         location: 'Nusa Penida, Bali, Indonesia',
-        description: 'Nikmati tur 2 hari yang menakjubkan ke Nusa Penida. Kunjungi berbagai lokasi-lokasi ikonik di pulau ini, mulai dari Pantai Kelingking, Pantai Atuh, Angel’s Billabong, dan lainnya.',
+        description: 'Nikmati tur 3 hari yang menakjubkan ke Nusa Penida. Kunjungi berbagai lokasi-lokasi ikonik di pulau ini, mulai dari Pantai Kelingking, Pantai Atuh, Angel’s Billabong, dan lainnya.',
         type: 'Paid',
-        ticket_types: 'Regular',
-        category_id: 6
-    },
-    {
-        name: 'Tur Bromo Golden Sunrise',
-        location: 'Bromo-Tengger-Semeru National Park, Jawa Tengah, Indonesia',
-        description: 'Nikmati perjalanan ke Gunung Bromo yang akan memberikanmu sensasi panorama matahari terbit yang cantik.',
-        type: 'Paid',
-        ticket_types: 'Regular',
+        organizer_uid: 'clymnrrcw0000y3y70fjztdg6',
         category_id: 6
     },
     {
@@ -167,7 +154,7 @@ const events = [
         location: 'Halong Bay, Hanoi, Vietnam',
         description: 'Perjalanan satu hari ke Halong Bay, salah satu pemandangan terindah di Vietnam yang diimpikan oleh banyak orang untuk dikunjungi sekali seumur hidup, sebuah simbol budaya tentang naga yang membawa dongeng mistis.',
         type: 'Paid',
-        ticket_types: 'Regular',
+        organizer_uid: 'clymnrrcw0000y3y70fjztdg6',
         category_id: 6
     }
 ]
@@ -207,10 +194,22 @@ const schedules = [
         event_id: 2
     },
     {
+        start_time: new Date("2024-08-24 19:00:00"),
+        end_time: new Date("2024-08-24 22:00:00"),
+        available_seats: 25,
+        event_id: 3
+    },
+    {
         start_time: new Date("2024-09-12 10:00:00"),
         end_time: new Date("2024-09-12 17:00:00"),
         available_seats: 75,
-        event_id: 3
+        event_id: 4
+    },
+    {
+        start_time: new Date("2024-08-01 14:00:00"),
+        end_time: new Date("2024-08-01 15:00:00"),
+        available_seats: 40,
+        event_id: 5
     },
     {
         start_time: new Date("2024-08-31 11:00:00"),
@@ -243,8 +242,20 @@ const schedules = [
         event_id: 7
     },
     {
-        start_time: new Date("2024-07-20 00:00:00"),
-        end_time: new Date("2024-07-20 12:30:00"),
+        start_time: new Date("2024-09-20 19:00:00"),
+        end_time: new Date("2024-11-03 22:00:00"),
+        available_seats: 80,
+        event_id: 8
+    },
+    {
+        start_time: new Date("2024-09-21 19:00:00"),
+        end_time: new Date("2024-11-03 22:00:00"),
+        available_seats: 150,
+        event_id: 8
+    },
+    {
+        start_time: new Date("2024-07-20 09:00:00"),
+        end_time: new Date("2024-07-22 15:00:00"),
         available_seats: 10,
         event_id: 9
     },
@@ -269,22 +280,27 @@ const ticket_types = [
     },
     {
         class_name: 'Regular',
-        price: 500000,
-        event_id: 3
-    },
-    {
-        class_name: 'VIP',
-        price: 1150000,
+        price: 1225000,
         event_id: 3
     },
     {
         class_name: 'Regular',
-        price: 100000,
+        price: 500000,
+        event_id: 4
+    },
+    {
+        class_name: 'VIP',
+        price: 1150000,
+        event_id: 4
+    },
+    {
+        class_name: 'Regular',
+        price: 0,
         event_id: 5
     },
     {
         class_name: 'General Admission',
-        price: 143000,
+        price: 77000,
         event_id: 6
     },
     {
@@ -293,14 +309,24 @@ const ticket_types = [
         event_id: 6
     },
     {
+        class_name: 'General Admission',
+        price: 85000,
+        event_id: 7
+    },
+    {
         class_name: 'Regular',
         price: 350000,
         event_id: 8
     },
     {
-        class_name: 'Regular',
-        price: 630000,
+        class_name: 'Full Package',
+        price: 3150000,
         event_id: 9
+    },
+    {
+        class_name: 'Full Day Package',
+        price: 630000,
+        event_id: 10
     },
 ]
 

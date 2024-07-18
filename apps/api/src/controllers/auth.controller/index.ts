@@ -1,4 +1,6 @@
+import { prisma } from "@/connection";
 import { createToken } from "@/helper/createToken";
+import generateReferralCode from "@/helper/generateReferralCode";
 import { comparePassword, hashPassword } from "@/helper/hashPassword";
 import { authenticationUserService } from "@/services/auth/authentication-user.service";
 import { keepAuthenticationUserService } from "@/services/auth/keep-authentication-user.service";
@@ -41,7 +43,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     }
 }
 
-/*export const register = async (req: Request, res: Response, next: NextFunction) => {
+export const register = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { first_name, last_name, username, phone_number, role, email, password } = req.body;
 
@@ -78,7 +80,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
                 last_name,
                 username,
                 phone_number,
-                role: role as Role,
+                role,
                 email,
                 password: await hashPassword(password),
                 referral_code,
@@ -94,7 +96,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
     } catch (error) {
         next(error)
     }
-}*/
+}
 
 export const keepAuthenticationUser = async(req: Request, res: Response, next: NextFunction) => {
     try {

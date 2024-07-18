@@ -29,7 +29,6 @@ model User {
   role          Role
   email         String  @db.VarChar(50)
   password      String
-  isVerified    Boolean @default(false)
   referral_code String  @db.VarChar(20)
   points        Int
 
