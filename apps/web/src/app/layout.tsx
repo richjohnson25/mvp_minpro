@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import AuthProvider from '@/providers/authProvider';
 import { ToastContainer } from 'react-toastify';
 import Header from '@/components/header';
+import Sidebar from '@/components/sidebar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,7 +30,10 @@ export default function RootLayout({
             <AuthProvider>
               <ToastContainer />
               <Header />
-              {children}
+              <div className='flex'>
+                <Sidebar />
+                <main className='flex-1'>{children}</main>
+              </div>
               <Footer />
             </AuthProvider>
           </ReduxProvider>

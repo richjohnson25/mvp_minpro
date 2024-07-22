@@ -3,10 +3,11 @@ import { FaUser } from "react-icons/fa6";
 import { FaUnlockAlt } from "react-icons/fa";
 import { Field, Form, Formik, ErrorMessage } from "formik";
 import { loginSchema } from "@/features/auth/login/schemas/loginSchema";
-import { useLogin } from "@/features/auth/login/hooks/useLogin";
 import Link from "next/link";
 import Image from "next/image";
-import authImage from "@/../public/images/Login Register.jpg"
+import authImage from "@/../public/images/Login Register.png";
+
+import { useLogin } from "@/features/auth/login/hooks/useLogin";
 
 export default function LoginPage(){
     const { mutationLogin } = useLogin()

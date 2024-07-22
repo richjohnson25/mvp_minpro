@@ -7,7 +7,6 @@ export interface IUser {
     role: Role;
     email: string;
     password: string;
-    isVerified: boolean;
     referral_code: string;
     points: number;
     createdAt: Date;

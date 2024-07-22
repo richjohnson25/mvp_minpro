@@ -5,7 +5,7 @@ import { FaRegUser, FaUser, FaCircleUser, FaLock } from "react-icons/fa6";
 import { IoCallSharp } from "react-icons/io5";
 import { MdAlternateEmail } from "react-icons/md";
 import Image from "next/image";
-import authImage from "@/../public/images/Login Register.jpg"
+import authImage from "@/../public/images/Login Register.png";
 
 import { usePostUser } from "@/features/auth/register/hooks/usePostUser";
 

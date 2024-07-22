@@ -1,5 +1,4 @@
 'use client'
-
 import { setAuth } from "@/redux/slices/authSlice";
 import { axiosInstance } from "@/utils/axiosInstance";
 import { useMutation } from "@tanstack/react-query";

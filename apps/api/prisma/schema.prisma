@@ -116,6 +116,8 @@ model Schedule {
   event_id Int
   events   Event @relation(fields: [event_id], references: [id])
 
+  transactions Transaction[]
+
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
@@ -151,6 +153,9 @@ model Transaction {
 
   participant_uid String
   participants    User   @relation(fields: [participant_uid], references: [uid])
+
+  schedule_id Int
+  schedules Schedule @relation(fields: [schedule_id], references: [id])
 
   ticket_type_id Int
   ticket_types   TicketType @relation(fields: [ticket_type_id], references: [id])

@@ -1,95 +1,80 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client'
+import { FaTrain, FaPlane, FaBus, FaHotel, FaTicket } from "react-icons/fa6";
+import { RiShip2Fill } from "react-icons/ri";
+import { MdApartment, MdTour } from "react-icons/md";
+import Image from "next/image";
+import homeDraper from "@/../public/images/Homepage.png";
+import { useGetEvents } from "@/features/event/hooks/useGetEvents";
+import { useSelector } from "react-redux";
 
 export default function Home() {
+  const auth = useSelector((state: any) => state.auth.auth)
+  const { dataEvents, isErrorEvents } = useGetEvents()
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
+    <main className="relative">
+      <section style={{ width: '100%', height: '500px', position: 'relative' }}>
         <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+          src={homeDraper}
+          fill
+          style={{ objectFit: 'cover' }}
+          alt="Home"
         />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+        <div className="flex flex-col justify-center items-center gap-4 absolute inset-0">
+          <h1 className="text-3xl font-bold text-white shadow-md">Hi {auth?.first_name}, choose your event here</h1>
+          <div className="flex items-center justify-center mt-6">
+            <div className="bg-white shadow-md rounded-lg flex items-center p-2 gap-2">
+              <input
+                type="text"
+                className="px-2 py-2 w-64 border border-gray-300 rounded-md focus:outline-none"
+                placeholder="Search..."
+              />
+              <button className="btn bg-blue-500 rounded-md text-white px-10 py-2">Search</button>
+            </div>
+          </div>
+          <div className="grid grid-rows-2 gap-2">
+            <div className="flex flex-row justify-center gap-4">
+              <button className="btn rounded-full">
+                <FaTrain />
+                Train
+              </button>
+              <button className="btn rounded-full">
+                <FaPlane />
+                Plane
+              </button>
+              <button className="btn rounded-full">
+                <RiShip2Fill />
+                Ship
+              </button>
+              <button className="btn rounded-full">
+                <FaBus />
+                Bus
+              </button>
+            </div>
+            <div className="flex flex-row justify-center gap-4">
+              <button className="btn rounded-full">
+                <FaHotel />
+                Hotel
+              </button>
+              <button className="btn rounded-full">
+                <MdApartment />
+                Villa & Apartment
+              </button>
+              <button className="btn rounded-full">
+                <FaTicket />
+                Events
+              </button>
+              <button className="btn rounded-full">
+                <MdTour />
+                Tours
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="flex justify-center">
+        <h1 className="text-3xl font-bold">Check What&apos;s Popular Here</h1>
+      </section>
     </main>
   )
 }

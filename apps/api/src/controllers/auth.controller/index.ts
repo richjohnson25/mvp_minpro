@@ -4,7 +4,7 @@ import generateReferralCode from "@/helper/generateReferralCode";
 import { comparePassword, hashPassword } from "@/helper/hashPassword";
 import { authenticationUserService } from "@/services/auth/authentication-user.service";
 import { keepAuthenticationUserService } from "@/services/auth/keep-authentication-user.service";
-import { verificationUserService } from "@/services/auth/verification-user.service";
+import { registerUserService } from "@/services/auth/register-user-service";
 import { NextFunction, Request, Response } from "express";
 
 export const login = async (req: Request, res: Response, next: NextFunction) => {
@@ -47,46 +47,7 @@ export const register = async (req: Request, res: Response, next: NextFunction) 
     try {
         const { first_name, last_name, username, phone_number, role, email, password } = req.body;
 
-        const findUser = await prisma.user.findFirst({
-            where: {
-                email
-            }
-        })
-
-        if(findUser){
-            throw { message: 'Email Already Registered!', status: 400 }
-        }
-
-        let referral_code = generateReferralCode();
-
-        let existingUserWithCode = await prisma.user.findFirst({
-            where: {
-                referral_code
-            }
-        })
-
-        while(existingUserWithCode) {
-            referral_code = generateReferralCode();
-            existingUserWithCode = await prisma.user.findFirst({
-                where: {
-                    referral_code
-                }
-            })
-        }
-
-        const createdUser = await prisma.user.create({
-            data:{
-                first_name,
-                last_name,
-                username,
-                phone_number,
-                role,
-                email,
-                password: await hashPassword(password),
-                referral_code,
-                points: 0
-            }
-        })
+        const createdUser = await registerUserService({ first_name, last_name, username, phone_number, role, email, password })
 
         res.status(201).send({
             error: false,
@@ -125,7 +86,7 @@ export const keepAuthenticationUser = async(req: Request, res: Response, next: N
     }
 }
 
-export const verificationUser = async(req: Request, res: Response, next: NextFunction) => {
+/*export const verificationUser = async(req: Request, res: Response, next: NextFunction) => {
     try {
         const { password, userId } = req.body
 
@@ -139,4 +100,4 @@ export const verificationUser = async(req: Request, res: Response, next: NextFun
     } catch (error) {
         next(error)
     }
-}
+}*/

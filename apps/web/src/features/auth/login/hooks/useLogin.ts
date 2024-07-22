@@ -20,7 +20,11 @@ export const useLogin = () => {
             dispatch(setAuth(response.data.data))
             localStorage.setItem('tkn', response.data.data.token)
             toast.success(response.data.message)
-            router.push('/')
+            if(response.data.data.role === 'ORGANIZER'){
+                router.push('/organizer/dashboard')
+            } else {
+                router.push('/')
+            }
         },
         onError: (error: any) => {
             toast.error(error.response.data.message)
